@@ -186,6 +186,12 @@
       "total": 1,
       "reason": "إيداع",
       "date": "2026-07-14T18:27:30.254Z"
+    },
+    {
+      "type": "إيداع درج",
+      "total": 1,
+      "reason": "إيداع",
+      "date": "2026-07-14T18:27:32.103Z"
     }
   ],
   "drawerLog": [
@@ -244,13 +250,20 @@
       "reason": "إيداع",
       "date": "2026-07-14T18:27:30.254Z",
       "balance": 4424
+    },
+    {
+      "type": "إيداع",
+      "amount": 1,
+      "reason": "إيداع",
+      "date": "2026-07-14T18:27:32.103Z",
+      "balance": 4425
     }
   ],
   "cart": [],
-  "drawer": 4424,
+  "drawer": 4425,
   "nextId": 6,
   "repairId": 2,
   "supplierId": 2,
   "employeeId": 2,
-  "theme": "light"
+  "theme": "dark"
 }
