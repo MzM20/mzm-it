@@ -85,14 +85,7 @@
       ]
     }
   ],
-  "suppliers": [
-    {
-      "id": 1,
-      "name": "ÃÂ¨ÃÂ¨ÃÂ¨",
-      "phone": "333",
-      "products": []
-    }
-  ],
+  "suppliers": [],
   "employees": [
     {
       "id": 1,
