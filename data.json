@@ -1,13 +1,106 @@
 {
-  "products": [],
-  "repairs": [],
+  "products": [
+    {
+      "id": 1,
+      "name": "ماوس لاسلكي Logitech",
+      "price": 150,
+      "cost": 90,
+      "qty": 25,
+      "image": "",
+      "category": "إكسسوارات",
+      "sold": 12
+    },
+    {
+      "id": 2,
+      "name": "كيبورد ميكانيكي RGB",
+      "price": 450,
+      "cost": 300,
+      "qty": 10,
+      "image": "",
+      "category": "إكسسوارات",
+      "sold": 8
+    },
+    {
+      "id": 3,
+      "name": "شاشة 24 بوصة Dell",
+      "price": 2200,
+      "cost": 1800,
+      "qty": 5,
+      "image": "",
+      "category": "شاشات",
+      "sold": 3
+    },
+    {
+      "id": 4,
+      "name": "رام 8GB DDR4",
+      "price": 600,
+      "cost": 480,
+      "qty": 15,
+      "image": "",
+      "category": "هاردوير",
+      "sold": 20
+    }
+  ],
+  "repairs": [
+    {
+      "id": 1,
+      "customer": "أحمد محمد",
+      "phone": "01001234567",
+      "device": "لاب توب HP Pavilion",
+      "issue": "شاشة مكسورة ومشكلة في البطارية",
+      "status": "جاري الصيانة",
+      "cost": 1200,
+      "items": [],
+      "date": "2026-07-14T17:57:48.982Z",
+      "history": [
+        "📝 تم استلام الجهاز"
+      ]
+    }
+  ],
   "suppliers": [],
-  "employees": [],
-  "salesLog": [],
-  "drawerLog": [],
-  "drawer": 0,
-  "nextId": 1,
-  "repairId": 1,
+  "employees": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "username": "admin",
+      "password": "YWRtaW4xMjM=",
+      "permissions": {
+        "products": true,
+        "sales": true,
+        "repairs": true,
+        "suppliers": true,
+        "reports": true,
+        "settings": true,
+        "drawer": true,
+        "employees": true,
+        "viewCost": true,
+        "deleteData": true,
+        "importExport": true
+      },
+      "isAdmin": true
+    }
+  ],
+  "salesLog": [
+    {
+      "type": "إيداع درج",
+      "total": 1,
+      "reason": "إيداع",
+      "date": "2026-07-14T17:58:17.053Z"
+    }
+  ],
+  "drawerLog": [
+    {
+      "type": "إيداع",
+      "amount": 1,
+      "reason": "إيداع",
+      "date": "2026-07-14T17:58:17.053Z",
+      "balance": 1
+    }
+  ],
+  "cart": [],
+  "drawer": 1,
+  "nextId": 5,
+  "repairId": 2,
   "supplierId": 1,
-  "employeeId": 1
+  "employeeId": 2
 }
