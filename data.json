@@ -85,7 +85,16 @@
       ]
     }
   ],
-  "suppliers": [],
+  "suppliers": [
+    {
+      "id": 2,
+      "name": "ddf",
+      "phone": "2323",
+      "address": "fasdf",
+      "received": [],
+      "given": []
+    }
+  ],
   "employees": [
     {
       "id": 1,
@@ -286,7 +295,7 @@
   "drawer": 4426,
   "nextId": 6,
   "repairId": 3,
-  "supplierId": 2,
+  "supplierId": 3,
   "employeeId": 2,
   "theme": "dark"
 }
