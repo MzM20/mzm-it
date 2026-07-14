@@ -63,12 +63,12 @@
     {
       "id": 7,
       "name": "ss",
-      "qty": 1,
+      "qty": 0,
       "price": 11,
       "cost": 11,
       "category": "ss",
       "image": "",
-      "sold": 0
+      "sold": 1
     }
   ],
   "repairs": [
@@ -237,6 +237,19 @@
       "customer": "fff",
       "reason": "صيانة جهاز ff",
       "date": "2026-07-14T18:29:07.023Z"
+    },
+    {
+      "type": "بيع سريع",
+      "total": 11,
+      "items": [
+        {
+          "name": "ss",
+          "qty": 1,
+          "price": 11
+        }
+      ],
+      "customer": "بيع سريع",
+      "date": "2026-07-14T20:13:48.078Z"
     }
   ],
   "drawerLog": [
@@ -309,10 +322,17 @@
       "reason": "صيانة جهاز ff للعميل fff",
       "date": "2026-07-14T18:29:07.023Z",
       "balance": 4426
+    },
+    {
+      "type": "بيع سريع",
+      "amount": 11,
+      "reason": "بيع 1 × ss",
+      "date": "2026-07-14T20:13:48.078Z",
+      "balance": 4437
     }
   ],
   "cart": [],
-  "drawer": 4426,
+  "drawer": 4437,
   "nextId": 11,
   "repairId": 3,
   "supplierId": 3,
