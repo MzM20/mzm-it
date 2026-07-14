@@ -135,6 +135,26 @@
         "importExport": true
       },
       "isAdmin": true
+    },
+    {
+      "id": 2,
+      "name": "qqqq",
+      "username": "qqqq",
+      "password": "cXFxcQ==",
+      "permissions": {
+        "products": true,
+        "sales": false,
+        "repairs": false,
+        "suppliers": false,
+        "reports": false,
+        "settings": false,
+        "drawer": false,
+        "employees": false,
+        "viewCost": false,
+        "deleteData": false,
+        "importExport": false
+      },
+      "isAdmin": false
     }
   ],
   "salesLog": [
@@ -336,6 +356,6 @@
   "nextId": 11,
   "repairId": 3,
   "supplierId": 3,
-  "employeeId": 2,
+  "employeeId": 3,
   "theme": "dark"
 }
