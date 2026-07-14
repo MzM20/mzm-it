@@ -1,6 +1,16 @@
 {
   "products": [
     {
+      "id": 4,
+      "name": "Ø±Ø§Ù 8GB DDR4",
+      "price": 600,
+      "cost": 480,
+      "qty": 15,
+      "image": "",
+      "category": "ÙØ§Ø±Ø¯ÙÙØ±",
+      "sold": 20
+    },
+    {
       "id": 1,
       "name": "ÙØ§ÙØ³ ÙØ§Ø³ÙÙÙ Logitech",
       "price": 150,
@@ -29,16 +39,6 @@
       "image": "",
       "category": "Ø´Ø§Ø´Ø§Øª",
       "sold": 3
-    },
-    {
-      "id": 4,
-      "name": "Ø±Ø§Ù 8GB DDR4",
-      "price": 600,
-      "cost": 480,
-      "qty": 15,
-      "image": "",
-      "category": "ÙØ§Ø±Ø¯ÙÙØ±",
-      "sold": 20
     },
     {
       "id": 5,
