@@ -1,0 +1,13 @@
+{
+  "products": [],
+  "repairs": [],
+  "suppliers": [],
+  "employees": [],
+  "salesLog": [],
+  "drawerLog": [],
+  "drawer": 0,
+  "nextId": 1,
+  "repairId": 1,
+  "supplierId": 1,
+  "employeeId": 1
+}
