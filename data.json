@@ -69,26 +69,6 @@
       "category": "ss",
       "image": "",
       "sold": 0
-    },
-    {
-      "id": 8,
-      "name": "ss",
-      "qty": 1,
-      "price": 11,
-      "cost": 11,
-      "category": "ss",
-      "image": "",
-      "sold": 0
-    },
-    {
-      "id": 9,
-      "name": "ss",
-      "qty": 1,
-      "price": 11,
-      "cost": 11,
-      "category": "ss",
-      "image": "",
-      "sold": 0
     }
   ],
   "repairs": [
