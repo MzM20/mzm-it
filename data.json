@@ -5,10 +5,10 @@
       "name": "Ø±Ø§Ù 8GB DDR4",
       "price": 600,
       "cost": 480,
-      "qty": 15,
+      "qty": 11,
       "image": "",
       "category": "ÙØ§Ø±Ø¯ÙÙØ±",
-      "sold": 20
+      "sold": 24
     },
     {
       "id": 1,
@@ -126,6 +126,20 @@
       ],
       "customer": "ببب",
       "date": "2026-07-14T18:16:58.300Z"
+    },
+    {
+      "type": "بيع",
+      "total": 2400,
+      "items": [
+        {
+          "id": 4,
+          "name": "Ø±Ø§Ù 8GB DDR4",
+          "price": 600,
+          "qty": 4
+        }
+      ],
+      "customer": "ب",
+      "date": "2026-07-14T18:17:17.231Z"
     }
   ],
   "drawerLog": [
@@ -149,10 +163,17 @@
       "reason": "مرتجع للعميل ببب",
       "date": "2026-07-14T18:16:58.300Z",
       "balance": 1090
+    },
+    {
+      "type": "بيع",
+      "amount": 2400,
+      "reason": "بيع للعميل ب",
+      "date": "2026-07-14T18:17:17.231Z",
+      "balance": 3490
     }
   ],
   "cart": [],
-  "drawer": 1090,
+  "drawer": 3490,
   "nextId": 6,
   "repairId": 2,
   "supplierId": 2,
