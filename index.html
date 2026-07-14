@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام كاشير المحترف - صيانة كمبيوتر وهاردوير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ====== جميع الـ Styles السابقة مع إضافات جديدة ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        :root {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --border-color: #e2e8f0;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.12);
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #8b5cf6;
+            --radius: 28px;
+            --radius-sm: 16px;
+        }
+
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        /* ====== Login ====== */
+        .login-page {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-page.active { display: flex; }
+        .login-box {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 48px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid var(--border-color);
+        }
+        .login-box h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .login-box .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        .login-box .input-field { margin-bottom: 16px; }
+        .login-box .btn { width: 100%; justify-content: center; font-size: 1.1rem; padding: 14px; }
+        .login-error {
+            color: var(--danger);
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ====== Glass ====== */
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .glass-sm { padding: 16px; border-radius: var(--radius-sm); }
+
+        /* ====== Buttons ====== */
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-success { background: var(--success); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn-success:hover { box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
+        .btn-danger { background: var(--danger); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+        .btn-danger:hover { box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4); }
+        .btn-warning { background: var(--warning); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
+        .btn-warning:hover { box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4); }
+        .btn-info { background: var(--info); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); }
+        .btn-info:hover { box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+        .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+        .btn-xs { padding: 4px 10px; font-size: 0.75rem; }
+
+        /* ====== Inputs ====== */
+        .input-field {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--border-color);
+            border-radius: 40px;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            color: var(--text-primary);
+        }
+        .dark-mode .input-field {
+            background: rgba(15, 23, 42, 0.6);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        .input-field::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        select.input-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a5568' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 20px center;
+            padding-left: 40px;
+        }
+        textarea.input-field {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ====== Grid ====== */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+        /* ====== Flex ====== */
+        .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .flex-center { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-1 { gap: 8px; }
+        .gap-2 { gap: 16px; }
+        .gap-3 { gap: 24px; }
+
+        /* ====== Spacing ====== */
+        .mt-1 { margin-top: 8px; }
+        .mt-2 { margin-top: 16px; }
+        .mt-3 { margin-top: 24px; }
+        .mb-1 { margin-bottom: 8px; }
+        .mb-2 { margin-bottom: 16px; }
+        .mb-3 { margin-bottom: 24px; }
+
+        /* ====== Badges ====== */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--primary);
+            color: white;
+        }
+        .badge-success { background: var(--success); }
+        .badge-danger { background: var(--danger); }
+        .badge-warning { background: var(--warning); }
+        .badge-info { background: var(--info); }
+
+        /* ====== Cards ====== */
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .product-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* ====== Search ====== */
+        .search-box { position: relative; }
+        .search-box i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        .search-box input { padding-right: 48px; }
+
+        /* ====== Tables ====== */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th {
+            background: var(--border-color);
+            padding: 14px 16px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+        td { padding: 12px 16px; border-bottom: 1px solid var(--border-color); }
+        tr:last-child td { border-bottom: none; }
+
+        /* ====== Modal ====== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.active { display: flex; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 800px;
+            width: 92%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ====== Sections ====== */
+        .section { display: none !important; animation: slideUp 0.4s ease; }
+        .section.active { display: block !important; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ====== Permissions ====== */
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            padding: 12px 0;
+        }
+        .permission-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: var(--bg-glass);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .permission-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        .permission-item label { cursor: pointer; font-weight: 500; flex: 1; }
+
+        /* ====== Top Bar ====== */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 16px 24px;
+        }
+        .top-bar .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .drawer-badge {
+            background: var(--warning);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            color: #1a202c;
+            transition: all 0.3s;
+        }
+        .drawer-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+        }
+        .dark-mode .drawer-badge { color: #1a202c; }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-glass);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+        .icon-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        /* ====== Nav Tabs ====== */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 8px;
+            background: var(--bg-glass);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        .nav-tabs .btn {
+            flex: 1;
+            min-width: 100px;
+            justify-content: center;
+        }
+
+        /* ====== Image Preview ====== */
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            margin-top: 8px;
+        }
+
+        /* ====== Supplier Tables ====== */
+        .supplier-transactions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .supplier-transactions .table-wrap { max-height: 300px; overflow-y: auto; }
+
+        /* ====== Responsive ====== */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .top-bar { flex-direction: column; align-items: stretch; text-align: center; }
+            .top-bar-left { justify-content: center; flex-wrap: wrap; }
+            .nav-tabs .btn { min-width: 80px; font-size: 0.85rem; padding: 8px 12px; }
+            .modal-content { padding: 20px; width: 95%; }
+            .permission-grid { grid-template-columns: 1fr; }
+            .login-box { padding: 32px 24px; }
+            .supplier-transactions { grid-template-columns: 1fr; }
+        }
+
+        /* ====== Utility ====== */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .text-muted { color: var(--text-secondary); opacity: 0.7; }
+        .w-full { width: 100%; }
+
+        /* ====== Scrollbar ====== */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--border-color); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* ====== Print ====== */
+        @media print {
+            .no-print { display: none !important; }
+            .glass { box-shadow: none !important; border: 1px solid #ddd !important; }
+            body { background: white !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== LOGIN PAGE ====== -->
+    <div id="loginPage" class="login-page active">
+        <div class="login-box">
+            <h1><i class="fas fa-laptop-code"></i> كاشير المحترف</h1>
+            <p class="subtitle">نظام إدارة المبيعات والصيانة</p>
+            <div>
+                <label class="text-muted">👤 اسم المستخدم</label>
+                <input class="input-field" id="loginUsername" placeholder="أدخل اسم المستخدم">
+            </div>
+            <div>
+                <label class="text-muted">🔒 كلمة المرور</label>
+                <input class="input-field" id="loginPassword" type="password" placeholder="أدخل كلمة المرور">
+            </div>
+            <button class="btn btn-success mt-2" onclick="handleLogin()">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </button>
+            <div id="loginError" class="login-error">
+                ❌ اسم المستخدم أو كلمة المرور غير صحيحة
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== MAIN APP ====== -->
+    <div id="mainApp" style="display:none;">
+
+        <!-- ====== MODAL ====== -->
+        <div id="globalModal" class="modal">
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+
+        <!-- ====== TOP BAR ====== -->
+        <div class="glass top-bar no-print">
+            <div class="top-bar-left">
+                <button class="btn btn-logout" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                </button>
+                <div class="logo">
+                    <i class="fas fa-laptop-code"></i> كاشير المحترف
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                <div class="drawer-badge" onclick="openDrawer()">
+                    <i class="fas fa-cash-register"></i>
+                    <span>الدرج: <span id="drawerTotal">0.00</span> ج.م</span>
+                </div>
+                <button class="icon-btn" onclick="toggleTheme()" title="تغيير المظهر">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="icon-btn" onclick="navigateTo('settings')" title="الإعدادات">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ====== NAVIGATION TABS - تم إزالة "المبيعات" ====== -->
+        <div class="nav-tabs no-print" id="mainNav">
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('dashboard')" data-perm="all">
+                <i class="fas fa-home"></i> الرئيسية
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('products')" data-perm="products">
+                <i class="fas fa-boxes"></i> المنتجات
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('repairs')" data-perm="repairs">
+                <i class="fas fa-tools"></i> الصيانات
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('suppliers')" data-perm="suppliers">
+                <i class="fas fa-truck"></i> الموردين
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('reports')" data-perm="reports">
+                <i class="fas fa-chart-pie"></i> التقارير
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('employees')" data-perm="employees">
+                <i class="fas fa-users"></i> الموظفين
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="navigateTo('settings')" data-perm="settings">
+                <i class="fas fa-sliders-h"></i> الإعدادات
+            </button>
+        </div>
+
+        <!-- ====== DASHBOARD ====== -->
+        <div id="section-dashboard" class="section active" data-perm="all">
+            <div class="glass">
+                <h2><i class="fas fa-chart-line"></i> لوحة التحكم الذكية</h2>
+                <div class="grid-3 mt-2">
+                    <div class="card">
+                        <h3><i class="fas fa-coins"></i> إجمالي المبيعات</h3>
+                        <p style="font-size:2.5rem;font-weight:900;color:var(--success);" id="totalSales">0.00</p>
+                        <p class="text-muted">ج.م</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-boxes"></i> المنتجات</h3>
+                        <p style="font-size:2.5rem;font-weight:900;color:var(--primary);" id="totalProducts">0</p>
+                        <p class="text-muted">صنف</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-tools"></i> الصيانات</h3>
+                        <p style="font-size:2.5rem;font-weight:900;color:var(--warning);" id="openRepairs">0</p>
+                        <p class="text-muted">قيد العمل</p>
+                    </div>
+                </div>
+                <div class="mt-2 glass-sm">
+                    <i class="fas fa-info-circle text-muted"></i>
+                    <span class="text-muted">نظام كاشير متكامل – مرحباً بك في بيئة العمل الاحترافية</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== PRODUCTS - مع أزرار بيع ومرتجع ====== -->
+        <div id="section-products" class="section" data-perm="products">
+            <div class="glass">
+                <div class="flex-between mb-2">
+                    <h2><i class="fas fa-boxes"></i> إدارة المنتجات</h2>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-success" onclick="openAddProduct()">
+                            <i class="fas fa-plus"></i> إضافة منتج
+                        </button>
+                        <button class="btn btn-warning" onclick="importProducts()">
+                            <i class="fas fa-file-import"></i> استيراد
+                        </button>
+                        <button class="btn btn-info" onclick="exportProducts()">
+                            <i class="fas fa-file-export"></i> تصدير
+                        </button>
+                        <button class="btn btn-outline" onclick="sortProducts()">
+                            <i class="fas fa-sort-amount-down"></i> ترتيب
+                        </button>
+                    </div>
+                </div>
+                <div class="search-box mb-2">
+                    <i class="fas fa-search"></i>
+                    <input class="input-field" type="text" id="productSearch" placeholder="بحث ذكي في المنتجات..." oninput="filterProducts()">
+                </div>
+                <div id="productList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+            </div>
+        </div>
+
+        <!-- ====== REPAIRS ====== -->
+        <div id="section-repairs" class="section" data-perm="repairs">
+            <div class="glass">
+                <div class="flex-between mb-2">
+                    <h2><i class="fas fa-tools"></i> إدارة الصيانات</h2>
+                    <button class="btn btn-success" onclick="openAddRepair()">
+                        <i class="fas fa-plus"></i> صيانة جديدة
+                    </button>
+                </div>
+                <div class="search-box mb-2">
+                    <i class="fas fa-search"></i>
+                    <input class="input-field" type="text" id="repairSearch" placeholder="بحث ذكي باسم العميل أو رقم الموبايل..." oninput="filterRepairs()">
+                </div>
+                <div id="repairList"></div>
+            </div>
+        </div>
+
+        <!-- ====== SUPPLIERS - متقدمة ====== -->
+        <div id="section-suppliers" class="section" data-perm="suppliers">
+            <div class="glass">
+                <div class="flex-between mb-2">
+                    <h2><i class="fas fa-truck"></i> إدارة الموردين</h2>
+                    <button class="btn btn-success" onclick="openAddSupplier()">
+                        <i class="fas fa-plus"></i> مورد جديد
+                    </button>
+                </div>
+                <div id="supplierList"></div>
+            </div>
+        </div>
+
+        <!-- ====== REPORTS - مع تحسين الجرد ====== -->
+        <div id="section-reports" class="section" data-perm="reports">
+            <div class="glass">
+                <h2><i class="fas fa-chart-pie"></i> التقارير والإحصائيات</h2>
+                <div class="grid-3 mt-2">
+                    <button class="btn btn-info" onclick="generateReport('inventory')">
+                        <i class="fas fa-clipboard-list"></i> جرد المخزن
+                    </button>
+                    <button class="btn btn-success" onclick="generateReport('profit')">
+                        <i class="fas fa-coins"></i> تقرير الأرباح
+                    </button>
+                    <button class="btn btn-warning" onclick="generateReport('logs')">
+                        <i class="fas fa-history"></i> سجل النظام
+                    </button>
+                    <button class="btn btn-outline" onclick="generateReport('drawerLog')">
+                        <i class="fas fa-cash-register"></i> سجل الدرج
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllData()" data-perm="deleteData">
+                        <i class="fas fa-trash-alt"></i> حذف كل البيانات
+                    </button>
+                    <button class="btn btn-outline" onclick="printReport()">
+                        <i class="fas fa-print"></i> طباعة التقرير
+                    </button>
+                </div>
+                <div id="reportOutput" class="mt-2"></div>
+            </div>
+        </div>
+
+        <!-- ====== EMPLOYEES ====== -->
+        <div id="section-employees" class="section" data-perm="employees">
+            <div class="glass">
+                <div class="flex-between mb-2">
+                    <h2><i class="fas fa-users-cog"></i> إدارة الموظفين والصلاحيات</h2>
+                    <button class="btn btn-success" onclick="openAddEmployee()">
+                        <i class="fas fa-user-plus"></i> إضافة موظف
+                    </button>
+                </div>
+                <div id="employeeList"></div>
+            </div>
+        </div>
+
+        <!-- ====== SETTINGS ====== -->
+        <div id="section-settings" class="section" data-perm="settings">
+            <div class="glass">
+                <h2><i class="fas fa-sliders-h"></i> الإعدادات المتقدمة</h2>
+                <div class="grid-2 mt-2">
+                    <div class="card">
+                        <h3><i class="fas fa-key"></i> الأمان</h3>
+                        <button class="btn btn-warning mt-1" onclick="changeAdminPassword()">
+                            <i class="fas fa-edit"></i> تغيير باسورد الأدمن
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-palette"></i> المظهر</h3>
+                        <button class="btn btn-info mt-1" onclick="toggleTheme()">
+                            <i class="fas fa-adjust"></i> تبديل الوضع الداكن/الفاتح
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-database"></i> البيانات</h3>
+                        <button class="btn btn-success mt-1" onclick="exportFullData()">
+                            <i class="fas fa-file-export"></i> تصدير كل البيانات
+                        </button>
+                        <button class="btn btn-warning mt-1" onclick="importFullData()" data-perm="importExport">
+                            <i class="fas fa-file-import"></i> استيراد كل البيانات
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-trash-alt"></i> تنظيف</h3>
+                        <button class="btn btn-danger mt-1" onclick="clearAllData()" data-perm="deleteData">
+                            <i class="fas fa-exclamation-triangle"></i> حذف كل البيانات
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2 glass-sm">
+                    <i class="fas fa-info-circle text-muted"></i>
+                    <span class="text-muted">جميع الصلاحيات مُدارة من قسم الموظفين مع تفاصيل دقيقة لكل ميزة</span>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- ====== END MAIN APP ====== -->
+
+    <script>
+        // ============================================================
+        // 1. GITHUB CONFIG
+        // ============================================================
+        const GITHUB_CONFIG = {
+            owner: 'MzM20',
+            repo: 'mzm-it',
+            path: 'data.json',
+            token: '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'
+        };
+
+        // ============================================================
+        // 2. DATA LAYER
+        // ============================================================
+        let DB = {
+            products: [],
+            repairs: [],
+            suppliers: [],
+            employees: [],
+            salesLog: [],
+            drawerLog: [],
+            cart: [],
+            drawer: 0,
+            nextId: 1,
+            repairId: 1,
+            supplierId: 1,
+            employeeId: 1,
+            _sha: null,
+            currentUser: null,
+            theme: 'light'
+        };
+
+        // ============================================================
+        // 3. GITHUB FUNCTIONS (نفس السابق)
+        // ============================================================
+        async function loadFromGitHub() {
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`,
+                    { headers: { 'Authorization': `token ${GITHUB_CONFIG.token}`, 'Accept': 'application/vnd.github.v3+json' } }
+                );
+                if (response.ok) {
+                    const data = await response.json();
+                    const content = atob(data.content);
+                    const parsed = JSON.parse(content);
+                    Object.keys(parsed).forEach(key => { if (key in DB) DB[key] = parsed[key]; });
+                    DB._sha = data.sha;
+                    return true;
+                }
+                return false;
+            } catch (error) { console.error('خطأ في التحميل:', error); return false; }
+        }
+
+        async function saveToGitHub() {
+            try {
+                const dataToSave = { ...DB };
+                delete dataToSave._sha;
+                delete dataToSave.currentUser;
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2))));
+                const body = {
+                    message: `تحديث البيانات - ${new Date().toLocaleString()}`,
+                    content: content,
+                    sha: DB._sha || undefined
+                };
+                const response = await fetch(
+                    `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`,
+                    { method: 'PUT', headers: { 'Authorization': `token ${GITHUB_CONFIG.token}`,
+                            'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+                        body: JSON.stringify(body) }
+                );
+                if (response.ok) { const data = await response.json();
+                    DB._sha = data.content.sha; return true; }
+                return false;
+            } catch (error) { console.error('خطأ في الحفظ:', error); return false; }
+        }
+
+        async function saveData() {
+            const result = await saveToGitHub();
+            if (result) console.log('✅ تم حفظ البيانات في GitHub');
+            else { console.warn('⚠️ فشل الحفظ في GitHub');
+                saveToLocalStorage(); }
+        }
+
+        function saveToLocalStorage() {
+            try {
+                const dataToSave = { ...DB };
+                delete dataToSave._sha;
+                delete dataToSave.currentUser;
+                localStorage.setItem('posSystemDB', JSON.stringify(dataToSave));
+            } catch (e) { console.error('خطأ في الحفظ المحلي:', e); }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem('posSystemDB');
+                if (raw) { const parsed = JSON.parse(raw);
+                    Object.keys(parsed).forEach(key => { if (key in DB) DB[key] = parsed[key]; }); return true; }
+            } catch (e) { console.warn('فشل التحميل المحلي'); }
+            return false;
+        }
+
+        // ============================================================
+        // 4. AUTHENTICATION (نفس السابق)
+        // ============================================================
+        let currentUser = null;
+
+        function handleLogin() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            if (!username || !password) {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('loginError').textContent = '❌ من فضلك أدخل اسم المستخدم وكلمة المرور';
+                return;
+            }
+            const user = DB.employees.find(e => e.username === username && e.password === btoa(password));
+            if (user) {
+                currentUser = user;
+                DB.currentUser = user;
+                document.getElementById('loginError').style.display = 'none';
+                document.getElementById('loginPage').classList.remove('active');
+                document.getElementById('mainApp').style.display = 'block';
+                applyPermissions();
+                renderAll();
+                updateDrawer();
+                navigateTo('dashboard');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+                document.getElementById('loginError').textContent = '❌ اسم المستخدم أو كلمة المرور غير صحيحة';
+            }
+        }
+
+        function handleLogout() {
+            if (!confirm('هل أنت متأكد من تسجيل الخروج؟')) return;
+            currentUser = null;
+            DB.currentUser = null;
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('loginPage').classList.add('active');
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginUsername').value = '';
+        }
+
+        // ============================================================
+        // 5. PERMISSIONS (نفس السابق)
+        // ============================================================
+        function applyPermissions() {
+            if (!currentUser) return;
+            const perms = currentUser.permissions || {};
+            const isAdmin = currentUser.isAdmin || false;
+            document.querySelectorAll('#mainNav .btn[data-perm]').forEach(btn => {
+                const perm = btn.dataset.perm;
+                btn.style.display = (perm === 'all' || isAdmin || perms[perm]) ? 'inline-flex' : 'none';
+            });
+            document.querySelectorAll('.section[data-perm]').forEach(section => {
+                const perm = section.dataset.perm;
+                section.style.display = (perm === 'all' || isAdmin || perms[perm]) ? 'block' : 'none';
+            });
+        }
+
+        // ============================================================
+        // 6. THEME (نفس السابق)
+        // ============================================================
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            DB.theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            saveData();
+        }
+
+        function applyTheme() {
+            if (DB.theme === 'dark') document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
+        }
+
+        // ============================================================
+        // 7. INITIALIZATION (نفس السابق)
+        // ============================================================
+        async function init() {
+            const loaded = await loadFromGitHub();
+            if (!loaded) { console.warn('⚠️ فشل التحميل من GitHub، استخدام البيانات المحلية');
+                loadFromLocalStorage(); }
+
+            if (DB.employees.length === 0) {
+                DB.employees = [{
+                    id: 1,
+                    name: 'Admin',
+                    username: 'admin',
+                    password: btoa('admin123'),
+                    permissions: {
+                        products: true,
+                        sales: true,
+                        repairs: true,
+                        suppliers: true,
+                        reports: true,
+                        settings: true,
+                        drawer: true,
+                        employees: true,
+                        viewCost: true,
+                        deleteData: true,
+                        importExport: true
+                    },
+                    isAdmin: true
+                }];
+                DB.employeeId = 2;
+            }
+
+            if (DB.products.length === 0) {
+                DB.products = [
+                    { id: 1, name: 'ماوس لاسلكي Logitech', price: 150, cost: 90, qty: 25, image: '', category: 'إكسسوارات',
+                        sold: 12 },
+                    { id: 2, name: 'كيبورد ميكانيكي RGB', price: 450, cost: 300, qty: 10, image: '', category: 'إكسسوارات',
+                        sold: 8 },
+                    { id: 3, name: 'شاشة 24 بوصة Dell', price: 2200, cost: 1800, qty: 5, image: '', category: 'شاشات',
+                        sold: 3 },
+                    { id: 4, name: 'رام 8GB DDR4', price: 600, cost: 480, qty: 15, image: '', category: 'هاردوير', sold: 20 },
+                ];
+                DB.nextId = 5;
+            }
+
+            if (DB.repairs.length === 0) {
+                DB.repairs = [{
+                    id: 1,
+                    customer: 'أحمد محمد',
+                    phone: '01001234567',
+                    device: 'لاب توب HP Pavilion',
+                    issue: 'شاشة مكسورة ومشكلة في البطارية',
+                    status: 'تم التسليم',
+                    cost: 1200,
+                    items: [],
+                    date: new Date().toISOString(),
+                    history: ['📝 تم استلام الجهاز', '✅ تم تسليم الجهاز']
+                }];
+                DB.repairId = 2;
+            }
+
+            if (DB.suppliers.length === 0) {
+                DB.suppliers = [{
+                    id: 1,
+                    name: 'مؤسسة التقنية الحديثة',
+                    phone: '01122334455',
+                    address: 'القاهرة - مصر',
+                    received: [{ product: 'ماوس لاسلكي', qty: 10, price: 80, date: '2026-07-01' }],
+                    given: [{ product: 'كيبورد', qty: 5, price: 250, date: '2026-07-05' }]
+                }];
+                DB.supplierId = 2;
+            }
+
+            applyTheme();
+            renderAll();
+            updateDrawer();
+
+            if (DB.currentUser) {
+                currentUser = DB.currentUser;
+                document.getElementById('loginPage').classList.remove('active');
+                document.getElementById('mainApp').style.display = 'block';
+                applyPermissions();
+                navigateTo('dashboard');
+            }
+            console.log('🚀 نظام كاشير المحترف جاهز');
+        }
+
+        // ============================================================
+        // 8. RENDER FUNCTIONS
+        // ============================================================
+        function renderAll() {
+            renderProducts();
+            renderRepairs();
+            renderSuppliers();
+            renderEmployees();
+            renderCart();
+            updateDashboard();
+            updateSaleProductSelect();
+            updateDrawer();
+        }
+
+        // ----- 8.1 Products - مع أزرار بيع ومرتجع -----
+        function renderProducts() {
+            const container = document.getElementById('productList');
+            const search = document.getElementById('productSearch').value.trim().toLowerCase();
+
+            let filtered = DB.products.filter(p =>
+                p.name.toLowerCase().includes(search) ||
+                (p.category && p.category.toLowerCase().includes(search))
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-muted p-3"><i class="fas fa-box-open fa-2x"></i><p>لا توجد منتجات</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    ${p.image ? `<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">` : ''}
+                    <div style="display:flex;justify-content:space-between;align-items:start;">
+                        <div>
+                            <strong style="font-size:1.1rem;">${p.name}</strong>
+                            <div style="font-size:0.85rem;color:var(--text-secondary);">${p.category || 'عام'}</div>
+                        </div>
+                        <span class="badge ${p.qty < 5 ? 'badge-danger' : p.qty < 15 ? 'badge-warning' : 'badge-success'}">
+                            ${p.qty}
+                        </span>
+                    </div>
+                    <div style="margin-top:8px;display:flex;justify-content:space-between;font-size:0.95rem;">
+                        <span>بيع: ${p.price} ج.م</span>
+                        ${currentUser?.isAdmin || currentUser?.permissions?.viewCost ? `<span style="color:var(--text-secondary);">شراء: ${p.cost} ج.م</span>` : ''}
+                    </div>
+                    <div style="margin-top:6px;font-size:0.8rem;color:var(--text-secondary);">
+                        <i class="fas fa-chart-line"></i> مبيعات: ${p.sold || 0}
+                    </div>
+                    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                        <button class="btn btn-sm btn-outline" onclick="editProduct(${p.id})">
+                            <i class="fas fa-edit"></i> تعديل
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})">
+                            <i class="fas fa-trash"></i> حذف
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="quickSell(${p.id})">
+                            <i class="fas fa-cart-plus"></i> بيع
+                        </button>
+                        <button class="btn btn-sm btn-warning" onclick="quickReturn(${p.id})">
+                            <i class="fas fa-undo"></i> مرتجع
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ----- دالة البيع السريع -----
+        function quickSell(id) {
+            const p = DB.products.find(x => x.id === id);
+            if (!p) return;
+            if (p.qty < 1) { alert('❌ الكمية غير متوفرة'); return; }
+
+            const qty = prompt(`كمية ${p.name} للبيع:`, '1');
+            if (!qty || isNaN(qty) || parseInt(qty) < 1) return;
+            const qtyNum = parseInt(qty);
+            if (p.qty < qtyNum) { alert(`❌ الكمية المتوفرة: ${p.qty}`); return; }
+
+            const total = p.price * qtyNum;
+            p.qty -= qtyNum;
+            p.sold = (p.sold || 0) + qtyNum;
+            DB.drawer += total;
+
+            DB.salesLog.push({ type: 'بيع سريع', total, items: [{ name: p.name, qty: qtyNum, price: p.price }],
+                customer: 'بيع سريع', date: new Date().toISOString() });
+            DB.drawerLog.push({ type: 'بيع سريع', amount: total, reason: `بيع ${qtyNum} × ${p.name}`,
+                date: new Date().toISOString(), balance: DB.drawer });
+
+            saveData();
+            renderAll();
+            alert(`✅ تم بيع ${qtyNum} × ${p.name} بمبلغ ${total.toFixed(2)} ج.م`);
+        }
+
+        // ----- دالة المرتجع السريع -----
+        function quickReturn(id) {
+            const p = DB.products.find(x => x.id === id);
+            if (!p) return;
+
+            const qty = prompt(`كمية ${p.name} للمرتجع:`, '1');
+            if (!qty || isNaN(qty) || parseInt(qty) < 1) return;
+            const qtyNum = parseInt(qty);
+
+            const total = p.price * qtyNum;
+            if (total > DB.drawer) { alert(`❌ رصيد الدرج غير كافٍ (${DB.drawer.toFixed(2)} ج.م)`); return; }
+
+            p.qty += qtyNum;
+            p.sold = (p.sold || 0) - qtyNum;
+            if (p.sold < 0) p.sold = 0;
+            DB.drawer -= total;
+
+            DB.salesLog.push({ type: 'مرتجع سريع', total, items: [{ name: p.name, qty: qtyNum, price: p.price }],
+                customer: 'مرتجع سريع', date: new Date().toISOString() });
+            DB.drawerLog.push({ type: 'مرتجع سريع', amount: total, reason: `مرتجع ${qtyNum} × ${p.name}`,
+                date: new Date().toISOString(), balance: DB.drawer });
+
+            saveData();
+            renderAll();
+            alert(`✅ تم مرتجع ${qtyNum} × ${p.name} بمبلغ ${total.toFixed(2)} ج.م`);
+        }
+
+        // ----- باقي دوال المنتجات (نفس السابق) -----
+        let imageData = null;
+
+        function openAddProduct() {
+            const html = `
+                <h2><i class="fas fa-plus-circle"></i> إضافة منتج جديد</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم المنتج *</label>
+                        <input class="input-field" id="pName" placeholder="مثال: ماوس لاسلكي">
+                    </div>
+                    <div>
+                        <label class="text-muted">القسم</label>
+                        <input class="input-field" id="pCategory" placeholder="مثال: إكسسوارات">
+                    </div>
+                    <div>
+                        <label class="text-muted">الكمية *</label>
+                        <input class="input-field" id="pQty" type="number" value="1" min="0">
+                    </div>
+                    <div>
+                        <label class="text-muted">سعر البيع *</label>
+                        <input class="input-field" id="pPrice" type="number" step="0.01" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="text-muted">سعر الشراء</label>
+                        <input class="input-field" id="pCost" type="number" step="0.01" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="text-muted">صورة المنتج</label>
+                        <input class="input-field" id="pImage" type="file" accept="image/*" onchange="previewImage(event)">
+                        <img id="imagePreview" class="image-preview" style="display:none;">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="addProduct()"><i class="fas fa-save"></i> حفظ المنتج</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageData = e.target.result;
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = imageData;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addProduct() {
+            const name = document.getElementById('pName').value.trim();
+            const qty = parseInt(document.getElementById('pQty').value) || 0;
+            const price = parseFloat(document.getElementById('pPrice').value) || 0;
+            const cost = parseFloat(document.getElementById('pCost').value) || 0;
+            const category = document.getElementById('pCategory').value.trim();
+
+            if (!name || qty < 0 || price <= 0) { alert('❌ الاسم والكمية وسعر البيع مطلوبة'); return; }
+
+            DB.products.push({
+                id: DB.nextId++,
+                name,
+                qty,
+                price,
+                cost,
+                category: category || 'عام',
+                image: imageData || '',
+                sold: 0
+            });
+
+            imageData = null;
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم إضافة المنتج بنجاح');
+        }
+
+        let editImageData = null;
+
+        function editProduct(id) {
+            const p = DB.products.find(x => x.id === id);
+            if (!p) return;
+
+            const html = `
+                <h2><i class="fas fa-edit"></i> تعديل المنتج: ${p.name}</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم المنتج *</label>
+                        <input class="input-field" id="eName" value="${p.name}">
+                    </div>
+                    <div>
+                        <label class="text-muted">القسم</label>
+                        <input class="input-field" id="eCategory" value="${p.category || ''}">
+                    </div>
+                    <div>
+                        <label class="text-muted">الكمية *</label>
+                        <input class="input-field" id="eQty" type="number" value="${p.qty}" min="0">
+                    </div>
+                    <div>
+                        <label class="text-muted">سعر البيع *</label>
+                        <input class="input-field" id="ePrice" type="number" step="0.01" value="${p.price}">
+                    </div>
+                    <div>
+                        <label class="text-muted">سعر الشراء</label>
+                        <input class="input-field" id="eCost" type="number" step="0.01" value="${p.cost}">
+                    </div>
+                    <div>
+                        <label class="text-muted">تغيير الصورة</label>
+                        <input class="input-field" id="eImage" type="file" accept="image/*" onchange="previewEditImage(event)">
+                        ${p.image ? `<img src="${p.image}" class="image-preview" style="display:block;">` : ''}
+                        <img id="editImagePreview" class="image-preview" style="display:none;">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveEditProduct(${id})"><i class="fas fa-save"></i> حفظ التعديلات</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function previewEditImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    editImageData = e.target.result;
+                    const preview = document.getElementById('editImagePreview');
+                    preview.src = editImageData;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveEditProduct(id) {
+            const p = DB.products.find(x => x.id === id);
+            if (!p) return;
+
+            p.name = document.getElementById('eName').value.trim() || p.name;
+            p.qty = parseInt(document.getElementById('eQty').value) || 0;
+            p.price = parseFloat(document.getElementById('ePrice').value) || 0;
+            p.cost = parseFloat(document.getElementById('eCost').value) || 0;
+            p.category = document.getElementById('eCategory').value.trim() || 'عام';
+            if (editImageData) { p.image = editImageData;
+                editImageData = null; }
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم تعديل المنتج بنجاح');
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا المنتج؟')) return;
+            DB.products = DB.products.filter(p => p.id !== id);
+            saveData();
+            renderAll();
+            alert('🗑️ تم حذف المنتج');
+        }
+
+        function filterProducts() { renderProducts(); }
+
+        function sortProducts() {
+            const sortOptions = [
+                { label: 'الأكثر مبيعاً', key: 'sold', order: 'desc' },
+                { label: 'الأقل مبيعاً', key: 'sold', order: 'asc' },
+                { label: 'الأعلى سعراً', key: 'price', order: 'desc' },
+                { label: 'الأقل سعراً', key: 'price', order: 'asc' },
+                { label: 'الأكثر كمية', key: 'qty', order: 'desc' },
+                { label: 'الأقل كمية', key: 'qty', order: 'asc' },
+            ];
+            const html = `
+                <h2><i class="fas fa-sort-amount-down"></i> ترتيب المنتجات</h2>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+                    ${sortOptions.map(opt => `
+                        <button class="btn btn-outline w-full" onclick="applySort('${opt.key}','${opt.order}')">${opt.label}</button>
+                    `).join('')}
+                </div>
+                <button class="btn btn-outline mt-2" onclick="closeModal()"><i class="fas fa-times"></i> إغلاق</button>
+            `;
+            openModal(html);
+        }
+
+        function applySort(key, order) {
+            DB.products.sort((a, b) => {
+                const valA = a[key] || 0;
+                const valB = b[key] || 0;
+                return order === 'desc' ? valB - valA : valA - valB;
+            });
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم ترتيب المنتجات');
+        }
+
+        // ----- 8.2 Repairs (نفس السابق مع تحسينات) -----
+        function renderRepairs() {
+            const container = document.getElementById('repairList');
+            const search = document.getElementById('repairSearch').value.trim().toLowerCase();
+
+            let filtered = DB.repairs.filter(r =>
+                r.customer.toLowerCase().includes(search) ||
+                r.phone.includes(search) ||
+                r.device.toLowerCase().includes(search)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-muted p-3"><i class="fas fa-tools fa-2x"></i><p>لا توجد صيانات</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(r => {
+                const statusColors = { 'جاري الصيانة': 'badge-warning', 'بانتظار قطعة': 'badge-info',
+                    'تم التسليم': 'badge-success' };
+                return `
+                    <div class="card mb-1">
+                        <div class="flex-between">
+                            <div>
+                                <strong style="font-size:1.1rem;">${r.customer}</strong>
+                                <span class="text-muted" style="font-size:0.9rem;">| ${r.phone}</span>
+                                <div style="font-size:0.9rem;">${r.device}</div>
+                            </div>
+                            <div style="text-align:left;">
+                                <span class="badge ${statusColors[r.status] || 'badge-warning'}">${r.status}</span>
+                                <div style="font-size:0.9rem;margin-top:4px;">${r.cost} ج.م</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:8px;font-size:0.9rem;color:var(--text-secondary);">
+                            <i class="fas fa-info-circle"></i> ${r.issue}
+                        </div>
+                        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="btn btn-sm btn-outline" onclick="editRepair(${r.id})"><i class="fas fa-edit"></i> تعديل</button>
+                            ${r.status !== 'تم التسليم' ? `
+                                <button class="btn btn-sm btn-success" onclick="completeRepair(${r.id})"><i class="fas fa-check"></i> تم التسليم</button>
+                            ` : ''}
+                            <button class="btn btn-sm btn-info" onclick="viewRepairHistory(${r.id})"><i class="fas fa-history"></i> السجل</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteRepair(${r.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ----- دوال الصيانات (نفس السابق) -----
+        function openAddRepair() {
+            const html = `
+                <h2><i class="fas fa-tools"></i> إضافة صيانة جديدة</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم العميل *</label>
+                        <input class="input-field" id="rCustomer" placeholder="مثال: أحمد محمد">
+                    </div>
+                    <div>
+                        <label class="text-muted">رقم الموبايل *</label>
+                        <input class="input-field" id="rPhone" placeholder="01001234567">
+                    </div>
+                    <div>
+                        <label class="text-muted">الجهاز *</label>
+                        <input class="input-field" id="rDevice" placeholder="مثال: لاب توب HP">
+                    </div>
+                    <div>
+                        <label class="text-muted">المبلغ المتوقع *</label>
+                        <input class="input-field" id="rCost" type="number" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-muted">وصف المشكلة *</label>
+                    <textarea class="input-field" id="rIssue" rows="3" placeholder="تفاصيل المشكلة..."></textarea>
+                </div>
+                <div>
+                    <label class="text-muted">حالة الصيانة</label>
+                    <select class="input-field" id="rStatus">
+                        <option value="جاري الصيانة">جاري الصيانة</option>
+                        <option value="بانتظار قطعة">بانتظار قطعة</option>
+                        <option value="تم التسليم">تم التسليم</option>
+                    </select>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="addRepair()"><i class="fas fa-save"></i> حفظ الصيانة</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function addRepair() {
+            const customer = document.getElementById('rCustomer').value.trim();
+            const phone = document.getElementById('rPhone').value.trim();
+            const device = document.getElementById('rDevice').value.trim();
+            const issue = document.getElementById('rIssue').value.trim();
+            const status = document.getElementById('rStatus').value;
+            const cost = parseFloat(document.getElementById('rCost').value) || 0;
+
+            if (!customer || !phone || !device || !issue || cost <= 0) {
+                alert('❌ جميع الحقول المطلوبة يجب ملؤها (بما في ذلك المبلغ)');
+                return;
+            }
+
+            DB.repairs.push({
+                id: DB.repairId++,
+                customer,
+                phone,
+                device,
+                issue,
+                status,
+                cost,
+                items: [],
+                date: new Date().toISOString(),
+                history: ['📝 تم إنشاء طلب الصيانة']
+            });
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم إضافة الصيانة بنجاح');
+        }
+
+        function editRepair(id) {
+            const r = DB.repairs.find(x => x.id === id);
+            if (!r) return;
+
+            const html = `
+                <h2><i class="fas fa-edit"></i> تعديل الصيانة</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم العميل *</label>
+                        <input class="input-field" id="erCustomer" value="${r.customer}">
+                    </div>
+                    <div>
+                        <label class="text-muted">رقم الموبايل *</label>
+                        <input class="input-field" id="erPhone" value="${r.phone}">
+                    </div>
+                    <div>
+                        <label class="text-muted">الجهاز *</label>
+                        <input class="input-field" id="erDevice" value="${r.device}">
+                    </div>
+                    <div>
+                        <label class="text-muted">المبلغ *</label>
+                        <input class="input-field" id="erCost" type="number" step="0.01" value="${r.cost}">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-muted">وصف المشكلة *</label>
+                    <textarea class="input-field" id="erIssue" rows="3">${r.issue}</textarea>
+                </div>
+                <div>
+                    <label class="text-muted">حالة الصيانة</label>
+                    <select class="input-field" id="erStatus">
+                        <option value="جاري الصيانة" ${r.status === 'جاري الصيانة' ? 'selected' : ''}>جاري الصيانة</option>
+                        <option value="بانتظار قطعة" ${r.status === 'بانتظار قطعة' ? 'selected' : ''}>بانتظار قطعة</option>
+                        <option value="تم التسليم" ${r.status === 'تم التسليم' ? 'selected' : ''}>تم التسليم</option>
+                    </select>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveEditRepair(${id})"><i class="fas fa-save"></i> حفظ التعديلات</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function saveEditRepair(id) {
+            const r = DB.repairs.find(x => x.id === id);
+            if (!r) return;
+
+            r.customer = document.getElementById('erCustomer').value.trim() || r.customer;
+            r.phone = document.getElementById('erPhone').value.trim() || r.phone;
+            r.device = document.getElementById('erDevice').value.trim() || r.device;
+            r.issue = document.getElementById('erIssue').value.trim() || r.issue;
+            r.status = document.getElementById('erStatus').value;
+            r.cost = parseFloat(document.getElementById('erCost').value) || 0;
+
+            r.history.push(`✏️ تم تعديل الصيانة - ${new Date().toLocaleString()}`);
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم تعديل الصيانة بنجاح');
+        }
+
+        function completeRepair(id) {
+            const r = DB.repairs.find(x => x.id === id);
+            if (!r) return;
+
+            if (r.status === 'تم التسليم') { alert('⚠️ هذه الصيانة مكتملة بالفعل'); return; }
+
+            if (r.cost > 0) {
+                DB.drawer += r.cost;
+                DB.drawerLog.push({ type: 'صيانة', amount: r.cost, reason: `صيانة جهاز ${r.device} للعميل ${r.customer}`,
+                    date: new Date().toISOString(), balance: DB.drawer });
+                DB.salesLog.push({ type: 'صيانة', total: r.cost, customer: r.customer,
+                    reason: `صيانة جهاز ${r.device}`, date: new Date().toISOString() });
+            }
+
+            r.status = 'تم التسليم';
+            r.history.push(`✅ تم تسليم الجهاز للزبون - ${new Date().toLocaleString()}`);
+            r.history.push(`💰 تم إضافة ${r.cost} ج.م للدرج`);
+
+            saveData();
+            renderAll();
+            alert(`✅ تم تسليم الجهاز وإضافة ${r.cost} ج.م للدرج`);
+        }
+
+        function deleteRepair(id) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذه الصيانة؟')) return;
+            DB.repairs = DB.repairs.filter(r => r.id !== id);
+            saveData();
+            renderAll();
+            alert('🗑️ تم حذف الصيانة');
+        }
+
+        function viewRepairHistory(id) {
+            const r = DB.repairs.find(x => x.id === id);
+            if (!r) return;
+
+            const html = `
+                <h2><i class="fas fa-history"></i> سجل الصيانة - ${r.customer}</h2>
+                <div style="margin:16px 0;">
+                    ${r.history.map((h, i) => `
+                        <div style="padding:8px 12px;border-bottom:1px solid var(--border-color);display:flex;gap:12px;">
+                            <span style="font-weight:700;color:var(--primary);">#${i+1}</span>
+                            <span>${h}</span>
+                        </div>
+                    `).join('') || '<p class="text-muted">لا يوجد سجل</p>'}
+                </div>
+                <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إغلاق</button>
+            `;
+            openModal(html);
+        }
+
+        function filterRepairs() { renderRepairs(); }
+
+        // ============================================================
+        // 9. SUPPLIERS - متقدمة
+        // ============================================================
+        function renderSuppliers() {
+            const container = document.getElementById('supplierList');
+
+            if (DB.suppliers.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-muted p-3"><i class="fas fa-truck fa-2x"></i><p>لا يوجد موردين</p></div>`;
+                return;
+            }
+
+            container.innerHTML = DB.suppliers.map(s => `
+                <div class="card mb-1">
+                    <div class="flex-between">
+                        <div>
+                            <strong style="font-size:1.1rem;">${s.name}</strong>
+                            <span class="text-muted" style="font-size:0.9rem;">| ${s.phone}</span>
+                            <div style="font-size:0.85rem;color:var(--text-secondary);">${s.address || 'لا يوجد عنوان'}</div>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="btn btn-sm btn-outline" onclick="viewSupplierDetails(${s.id})">
+                                <i class="fas fa-eye"></i> عرض
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="editSupplier(${s.id})">
+                                <i class="fas fa-edit"></i> تعديل
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteSupplier(${s.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddSupplier() {
+            const html = `
+                <h2><i class="fas fa-truck"></i> إضافة مورد جديد</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم المورد *</label>
+                        <input class="input-field" id="sName" placeholder="مثال: مؤسسة التقنية">
+                    </div>
+                    <div>
+                        <label class="text-muted">رقم الهاتف *</label>
+                        <input class="input-field" id="sPhone" placeholder="01122334455">
+                    </div>
+                    <div>
+                        <label class="text-muted">العنوان</label>
+                        <input class="input-field" id="sAddress" placeholder="مثال: القاهرة - مصر">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="addSupplier()"><i class="fas fa-save"></i> حفظ المورد</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function addSupplier() {
+            const name = document.getElementById('sName').value.trim();
+            const phone = document.getElementById('sPhone').value.trim();
+            const address = document.getElementById('sAddress').value.trim();
+
+            if (!name || !phone) { alert('❌ الاسم والهاتف مطلوبان'); return; }
+
+            DB.suppliers.push({
+                id: DB.supplierId++,
+                name,
+                phone,
+                address: address || '',
+                received: [],
+                given: []
+            });
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم إضافة المورد بنجاح');
+        }
+
+        function deleteSupplier(id) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا المورد؟')) return;
+            DB.suppliers = DB.suppliers.filter(s => s.id !== id);
+            saveData();
+            renderAll();
+            alert('🗑️ تم حذف المورد');
+        }
+
+        // ----- عرض تفاصيل المورد -----
+        function viewSupplierDetails(id) {
+            const s = DB.suppliers.find(x => x.id === id);
+            if (!s) return;
+
+            const html = `
+                <h2><i class="fas fa-truck"></i> ${s.name}</h2>
+                <div class="grid-2">
+                    <div><strong>رقم الهاتف:</strong> ${s.phone}</div>
+                    <div><strong>العنوان:</strong> ${s.address || 'لا يوجد'}</div>
+                </div>
+
+                <div class="supplier-transactions mt-2">
+                    <div>
+                        <h4 style="color:var(--success);"><i class="fas fa-arrow-left"></i> المستلم من المورد</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>التاريخ</th></tr></thead>
+                                <tbody>
+                                    ${s.received && s.received.length > 0 ?
+                                        s.received.map(item => `
+                                            <tr><td>${item.product}</td><td>${item.qty}</td><td>${item.price}</td><td>${item.date || '-'}</td></tr>
+                                        `).join('') :
+                                        '<tr><td colspan="4" class="text-muted text-center">لا توجد مشتريات</td></tr>'
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color:var(--danger);"><i class="fas fa-arrow-right"></i> المعطى للمورد</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>التاريخ</th></tr></thead>
+                                <tbody>
+                                    ${s.given && s.given.length > 0 ?
+                                        s.given.map(item => `
+                                            <tr><td>${item.product}</td><td>${item.qty}</td><td>${item.price}</td><td>${item.date || '-'}</td></tr>
+                                        `).join('') :
+                                        '<tr><td colspan="4" class="text-muted text-center">لا توجد مبيعات</td></tr>'
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="addSupplierTransaction(${s.id}, 'received')">
+                        <i class="fas fa-arrow-left"></i> إضافة مشتريات
+                    </button>
+                    <button class="btn btn-warning" onclick="addSupplierTransaction(${s.id}, 'given')">
+                        <i class="fas fa-arrow-right"></i> إضافة مبيعات
+                    </button>
+                    <button class="btn btn-info" onclick="printSupplierDetails(${s.id})">
+                        <i class="fas fa-print"></i> طباعة
+                    </button>
+                    <button class="btn btn-outline" onclick="closeModal()">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        // ----- إضافة معاملة للمورد -----
+        function addSupplierTransaction(supplierId, type) {
+            const s = DB.suppliers.find(x => x.id === supplierId);
+            if (!s) return;
+
+            const productsList = DB.products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+
+            const html = `
+                <h2>${type === 'received' ? '🛒 شراء من' : '💰 بيع لـ'} ${s.name}</h2>
+                <div class="mt-2">
+                    <label class="text-muted">اختر المنتج</label>
+                    <select class="input-field" id="transProduct">
+                        ${productsList}
+                    </select>
+                </div>
+                <div class="grid-2 mt-1">
+                    <div>
+                        <label class="text-muted">الكمية</label>
+                        <input class="input-field" id="transQty" type="number" value="1" min="1">
+                    </div>
+                    <div>
+                        <label class="text-muted">سعر الوحدة</label>
+                        <input class="input-field" id="transPrice" type="number" step="0.01" placeholder="0.00">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveSupplierTransaction(${supplierId}, '${type}')">
+                        <i class="fas fa-save"></i> حفظ
+                    </button>
+                    <button class="btn btn-outline" onclick="closeModal()">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function saveSupplierTransaction(supplierId, type) {
+            const s = DB.suppliers.find(x => x.id === supplierId);
+            if (!s) return;
+
+            const productId = parseInt(document.getElementById('transProduct').value);
+            const qty = parseInt(document.getElementById('transQty').value) || 0;
+            const price = parseFloat(document.getElementById('transPrice').value) || 0;
+
+            if (!productId || qty < 1 || price <= 0) {
+                alert('❌ اختر منتجاً وكمية وسعراً صحيحاً');
+                return;
+            }
+
+            const product = DB.products.find(p => p.id === productId);
+            if (!product) { alert('❌ المنتج غير موجود'); return; }
+
+            const total = price * qty;
+
+            if (type === 'received') {
+                // شراء من المورد - يزيد المخزون ويخصم من الدرج
+                if (total > DB.drawer) { alert(`❌ رصيد الدرج غير كافٍ (${DB.drawer.toFixed(2)} ج.م)`); return; }
+                DB.drawer -= total;
+                product.qty += qty;
+                product.cost = price;
+
+                s.received.push({
+                    product: product.name,
+                    qty: qty,
+                    price: price,
+                    date: new Date().toISOString().slice(0, 10)
+                });
+
+                DB.salesLog.push({ type: 'شراء من مورد', total, items: [{ name: product.name, qty, price }],
+                    customer: s.name, date: new Date().toISOString() });
+                DB.drawerLog.push({ type: 'شراء من مورد', amount: total, reason: `شراء ${qty} × ${product.name} من ${s.name}`,
+                    date: new Date().toISOString(), balance: DB.drawer });
+
+            } else {
+                // بيع للمورد - ينقص المخزن ويزيد الدرج
+                if (product.qty < qty) { alert(`❌ الكمية المتوفرة: ${product.qty}`); return; }
+                DB.drawer += total;
+                product.qty -= qty;
+                product.sold = (product.sold || 0) + qty;
+
+                s.given.push({
+                    product: product.name,
+                    qty: qty,
+                    price: price,
+                    date: new Date().toISOString().slice(0, 10)
+                });
+
+                DB.salesLog.push({ type: 'بيع لمورد', total, items: [{ name: product.name, qty, price }],
+                    customer: s.name, date: new Date().toISOString() });
+                DB.drawerLog.push({ type: 'بيع لمورد', amount: total, reason: `بيع ${qty} × ${product.name} لـ ${s.name}`,
+                    date: new Date().toISOString(), balance: DB.drawer });
+            }
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert(`✅ تمت العملية بنجاح - ${total.toFixed(2)} ج.م`);
+            // إعادة عرض تفاصيل المورد
+            viewSupplierDetails(supplierId);
+        }
+
+        // ----- طباعة صفحة المورد -----
+        function printSupplierDetails(id) {
+            const s = DB.suppliers.find(x => x.id === id);
+            if (!s) return;
+
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+            printWindow.document.write(`
+                <html><head><title>${s.name} - تفاصيل المورد</title>
+                <style>
+                    body { font-family: 'Tajawal', sans-serif; padding: 30px; direction: rtl; }
+                    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    th, td { padding: 8px 12px; border: 1px solid #ddd; text-align: right; }
+                    th { background: #f0f0f0; }
+                    h2 { color: #2563eb; }
+                    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                    .text-center { text-align: center; }
+                    .text-muted { color: #666; }
+                </style>
+                </head><body>
+                    <h1 style="text-align:center;color:#2563eb;">نظام كاشير المحترف</h1>
+                    <h2 style="text-align:center;">${s.name}</h2>
+                    <div style="display:flex;justify-content:space-between;margin:10px 0;">
+                        <div><strong>رقم الهاتف:</strong> ${s.phone}</div>
+                        <div><strong>العنوان:</strong> ${s.address || 'لا يوجد'}</div>
+                    </div>
+                    <hr>
+                    <div class="grid-2">
+                        <div>
+                            <h3 style="color:#10b981;">🛒 المستلم من المورد</h3>
+                            <table>
+                                <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>التاريخ</th></tr></thead>
+                                <tbody>
+                                    ${s.received && s.received.length > 0 ?
+                                        s.received.map(item => `
+                                            <tr><td>${item.product}</td><td>${item.qty}</td><td>${item.price}</td><td>${item.date || '-'}</td></tr>
+                                        `).join('') :
+                                        '<tr><td colspan="4" class="text-muted text-center">لا توجد مشتريات</td></tr>'
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h3 style="color:#ef4444;">💰 المعطى للمورد</h3>
+                            <table>
+                                <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>التاريخ</th></tr></thead>
+                                <tbody>
+                                    ${s.given && s.given.length > 0 ?
+                                        s.given.map(item => `
+                                            <tr><td>${item.product}</td><td>${item.qty}</td><td>${item.price}</td><td>${item.date || '-'}</td></tr>
+                                        `).join('') :
+                                        '<tr><td colspan="4" class="text-muted text-center">لا توجد مبيعات</td></tr>'
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <p style="text-align:center;color:#999;font-size:0.9rem;">تم إنشاء التقرير بواسطة نظام كاشير المحترف - ${new Date().toLocaleString()}</p>
+                </body></html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // ----- تعديل المورد -----
+        function editSupplier(id) {
+            const s = DB.suppliers.find(x => x.id === id);
+            if (!s) return;
+
+            const html = `
+                <h2><i class="fas fa-edit"></i> تعديل المورد: ${s.name}</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">اسم المورد *</label>
+                        <input class="input-field" id="esName" value="${s.name}">
+                    </div>
+                    <div>
+                        <label class="text-muted">رقم الهاتف *</label>
+                        <input class="input-field" id="esPhone" value="${s.phone}">
+                    </div>
+                    <div>
+                        <label class="text-muted">العنوان</label>
+                        <input class="input-field" id="esAddress" value="${s.address || ''}">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveEditSupplier(${id})"><i class="fas fa-save"></i> حفظ التعديلات</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function saveEditSupplier(id) {
+            const s = DB.suppliers.find(x => x.id === id);
+            if (!s) return;
+
+            s.name = document.getElementById('esName').value.trim() || s.name;
+            s.phone = document.getElementById('esPhone').value.trim() || s.phone;
+            s.address = document.getElementById('esAddress').value.trim() || '';
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم تعديل المورد بنجاح');
+        }
+
+        // ============================================================
+        // 10. CART FUNCTIONS (نفس السابق مع حذف نقطة البيع)
+        // ============================================================
+        function renderCart() {
+            const tbody = document.getElementById('cartItems');
+            let total = 0;
+
+            if (DB.cart.length === 0) {
+                tbody.innerHTML =
+                    `<tr><td colspan="5" class="text-center text-muted">السلة فارغة</td></tr>`;
+                document.getElementById('cartTotal').innerText = '0.00';
+                return;
+            }
+
+            tbody.innerHTML = DB.cart.map((item, idx) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                return `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.qty}</td>
+                        <td>${item.price.toFixed(2)}</td>
+                        <td>${subtotal.toFixed(2)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" onclick="removeFromCart(${idx})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').innerText = total.toFixed(2);
+        }
+
+        function addToCart() {
+            const id = parseInt(document.getElementById('saleProduct').value);
+            const qty = parseInt(document.getElementById('saleQty').value) || 1;
+
+            if (!id || qty < 1) { alert('❌ اختر منتجاً وكمية صحيحة'); return; }
+
+            const product = DB.products.find(p => p.id === id);
+            if (!product) { alert('❌ المنتج غير موجود'); return; }
+            if (product.qty < qty) { alert(`❌ الكمية المتوفرة: ${product.qty}`); return; }
+
+            const existing = DB.cart.find(item => item.id === id);
+            if (existing) {
+                if (existing.qty + qty > product.qty) { alert(`❌ الكمية المتوفرة: ${product.qty}`); return; }
+                existing.qty += qty;
+            } else {
+                DB.cart.push({ id: product.id, name: product.name, price: product.price, qty });
+            }
+
+            renderCart();
+            document.getElementById('saleQty').value = 1;
+            alert(`✅ تم إضافة ${qty} × ${product.name} للسلة`);
+        }
+
+        function removeFromCart(idx) {
+            DB.cart.splice(idx, 1);
+            renderCart();
+        }
+
+        function processSale(isReturn) {
+            if (DB.cart.length === 0) { alert('❌ السلة فارغة'); return; }
+
+            const customer = document.getElementById('saleCustomer').value.trim() || 'عميل';
+            let total = DB.cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+            if (isReturn) {
+                if (total > DB.drawer) { alert(`❌ رصيد الدرج غير كافٍ (${DB.drawer.toFixed(2)} ج.م)`); return; }
+                DB.cart.forEach(item => {
+                    const p = DB.products.find(pr => pr.id === item.id);
+                    if (p) p.qty += item.qty;
+                });
+                DB.drawer -= total;
+                DB.salesLog.push({ type: 'مرتجع', total, items: [...DB.cart], customer,
+                date: new Date().toISOString() });
+                DB.drawerLog.push({ type: 'مرتجع', amount: total, reason: `مرتجع للعميل ${customer}`,
+                    date: new Date().toISOString(), balance: DB.drawer });
+                alert(`✅ تم المرتجع بنجاح - ${total.toFixed(2)} ج.م`);
+            } else {
+                DB.cart.forEach(item => {
+                    const p = DB.products.find(pr => pr.id === item.id);
+                    if (p) { p.qty -= item.qty;
+                        p.sold = (p.sold || 0) + item.qty; }
+                });
+                DB.drawer += total;
+                DB.salesLog.push({ type: 'بيع', total, items: [...DB.cart], customer, date: new Date().toISOString() });
+                DB.drawerLog.push({ type: 'بيع', amount: total, reason: `بيع للعميل ${customer}`,
+                    date: new Date().toISOString(), balance: DB.drawer });
+                alert(`✅ تم البيع بنجاح - ${total.toFixed(2)} ج.م`);
+            }
+
+            DB.cart = [];
+            saveData();
+            renderAll();
+            document.getElementById('saleCustomer').value = '';
+        }
+
+        function updateSaleProductSelect() {
+            const sel = document.getElementById('saleProduct');
+            sel.innerHTML = DB.products
+                .filter(p => p.qty > 0)
+                .map(p =>
+                    `<option value="${p.id}">${p.name} (${p.qty}) - ${p.price} ج.م</option>`
+                ).join('') || '<option value="">لا توجد منتجات</option>';
+        }
+
+        // ============================================================
+        // 11. EMPLOYEES FUNCTIONS (نفس السابق)
+        // ============================================================
+        function renderEmployees() {
+            const container = document.getElementById('employeeList');
+
+            if (DB.employees.length === 0) {
+                container.innerHTML =
+                    `<div class="text-center text-muted p-3"><i class="fas fa-users fa-2x"></i><p>لا يوجد موظفين</p></div>`;
+                return;
+            }
+
+            container.innerHTML = DB.employees.map(e => {
+                const permCount = Object.values(e.permissions || {}).filter(v => v === true).length;
+                return `
+                    <div class="card mb-1">
+                        <div class="flex-between">
+                            <div>
+                                <strong style="font-size:1.1rem;">${e.name}</strong>
+                                <span class="text-muted" style="font-size:0.9rem;">| ${e.username}</span>
+                                ${e.isAdmin ? '<span class="badge badge-success">أدمن</span>' : ''}
+                                <span class="text-muted" style="font-size:0.85rem;">(${permCount} صلاحيات)</span>
+                            </div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button class="btn btn-sm btn-outline" onclick="editEmployee(${e.id})">
+                                    <i class="fas fa-user-cog"></i> صلاحيات
+                                </button>
+                                ${!e.isAdmin ? `<button class="btn btn-sm btn-danger" onclick="deleteEmployee(${e.id})">
+                                    <i class="fas fa-user-slash"></i>
+                                </button>` : ''}
+                            </div>
+                        </div>
+                        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;font-size:0.8rem;">
+                            ${Object.entries(e.permissions || {})
+                                .filter(([key, val]) => val === true)
+                                .map(([key]) => `<span class="badge badge-info">${key}</span>`)
+                                .join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openAddEmployee() {
+            const permissions = [
+                { key: 'products', label: 'المنتجات', desc: 'عرض وإضافة وتعديل المنتجات' },
+                { key: 'sales', label: 'المبيعات', desc: 'إدارة عمليات البيع والمرتجع' },
+                { key: 'repairs', label: 'الصيانات', desc: 'إدارة طلبات الصيانة' },
+                { key: 'suppliers', label: 'الموردين', desc: 'إدارة الموردين والمشتريات' },
+                { key: 'reports', label: 'التقارير', desc: 'عرض التقارير والإحصائيات' },
+                { key: 'settings', label: 'الإعدادات', desc: 'الوصول للإعدادات' },
+                { key: 'drawer', label: 'الدرج', desc: 'إدارة الدرج المالي' },
+                { key: 'employees', label: 'الموظفين', desc: 'إدارة الموظفين والصلاحيات' },
+                { key: 'viewCost', label: 'عرض التكلفة', desc: 'رؤية سعر الشراء' },
+                { key: 'deleteData', label: 'حذف البيانات', desc: 'حذف السجلات والبيانات' },
+                { key: 'importExport', label: 'استيراد/تصدير', desc: 'استيراد وتصدير البيانات' },
+            ];
+
+            const html = `
+                <h2><i class="fas fa-user-plus"></i> إضافة موظف جديد</h2>
+                <div class="grid-2 mt-2">
+                    <div>
+                        <label class="text-muted">الاسم *</label>
+                        <input class="input-field" id="eNameEmp" placeholder="مثال: أحمد علي">
+                    </div>
+                    <div>
+                        <label class="text-muted">يوزرنيم *</label>
+                        <input class="input-field" id="eUsername" placeholder="اسم المستخدم">
+                    </div>
+                    <div>
+                        <label class="text-muted">كلمة المرور *</label>
+                        <input class="input-field" id="ePassword" type="password" placeholder="********">
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <label class="text-muted">الصلاحيات (اختر ما يناسب)</label>
+                    <div class="permission-grid">
+                        ${permissions.map(p => `
+                            <div class="permission-item">
+                                <input type="checkbox" id="perm_${p.key}">
+                                <label for="perm_${p.key}">
+                                    <strong>${p.label}</strong>
+                                    <span class="text-muted" style="font-size:0.8rem;display:block;">${p.desc}</span>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="addEmployee()"><i class="fas fa-save"></i> حفظ الموظف</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function addEmployee() {
+            const name = document.getElementById('eNameEmp').value.trim();
+            const username = document.getElementById('eUsername').value.trim();
+            const password = document.getElementById('ePassword').value.trim();
+
+            if (!name || !username || !password) { alert('❌ جميع الحقول المطلوبة يجب ملؤها'); return; }
+
+            const permKeys = ['products', 'sales', 'repairs', 'suppliers', 'reports', 'settings', 'drawer', 'employees',
+                'viewCost', 'deleteData', 'importExport'
+            ];
+            const permissions = {};
+            permKeys.forEach(key => { permissions[key] = document.getElementById(`perm_${key}`)?.checked || false; });
+
+            DB.employees.push({ id: DB.employeeId++, name, username, password: btoa(password), permissions,
+            isAdmin: false });
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم إضافة الموظف بنجاح');
+        }
+
+        function editEmployee(id) {
+            const e = DB.employees.find(x => x.id === id);
+            if (!e) return;
+
+            const permKeys = ['products', 'sales', 'repairs', 'suppliers', 'reports', 'settings', 'drawer', 'employees',
+                'viewCost', 'deleteData', 'importExport'
+            ];
+
+            const html = `
+                <h2><i class="fas fa-user-cog"></i> صلاحيات الموظف: ${e.name}</h2>
+                <div class="permission-grid mt-2">
+                    ${permKeys.map(key => `
+                        <div class="permission-item">
+                            <input type="checkbox" id="ep_${key}" ${e.permissions?.[key] ? 'checked' : ''}>
+                            <label for="ep_${key}">
+                                <strong>${key}</strong>
+                            </label>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveEmployeePerms(${id})"><i class="fas fa-save"></i> حفظ الصلاحيات</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function saveEmployeePerms(id) {
+            const e = DB.employees.find(x => x.id === id);
+            if (!e) return;
+
+            const permKeys = ['products', 'sales', 'repairs', 'suppliers', 'reports', 'settings', 'drawer', 'employees',
+                'viewCost', 'deleteData', 'importExport'
+            ];
+            e.permissions = {};
+            permKeys.forEach(key => { e.permissions[key] = document.getElementById(`ep_${key}`)?.checked || false; });
+
+            saveData();
+            renderAll();
+            closeModal();
+            alert('✅ تم تحديث صلاحيات الموظف');
+        }
+
+        function deleteEmployee(id) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا الموظف؟')) return;
+            DB.employees = DB.employees.filter(e => e.id !== id);
+            saveData();
+            renderAll();
+            alert('🗑️ تم حذف الموظف');
+        }
+
+        // ============================================================
+        // 12. REPORTS - مع تحسين الجرد
+        // ============================================================
+        function generateReport(type) {
+            const output = document.getElementById('reportOutput');
+
+            switch (type) {
+                case 'inventory':
+                    let invHtml = `<h3><i class="fas fa-clipboard-list"></i> جرد المخزن التفصيلي</h3>`;
+                    invHtml += `
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>المنتج</th>
+                                        <th>الكمية الحالية</th>
+                                        <th>الكمية المباعة</th>
+                                        <th>سعر البيع</th>
+                                        ${currentUser?.isAdmin || currentUser?.permissions?.viewCost ? '<th>سعر الشراء</th>' : ''}
+                                        <th>قيمة المخزن</th>
+                                        <th>الربح الصافي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+                    let totalValue = 0;
+                    let totalProfit = 0;
+
+                    DB.products.forEach(p => {
+                        const value = p.price * p.qty;
+                        const soldValue = p.sold * p.price;
+                        const soldCost = p.sold * p.cost;
+                        const profit = soldValue - soldCost;
+                        totalValue += value;
+                        totalProfit += profit;
+
+                        invHtml += `
+                            <tr>
+                                <td>${p.name}</td>
+                                <td>${p.qty}</td>
+                                <td>${p.sold || 0}</td>
+                                <td>${p.price}</td>
+                                ${currentUser?.isAdmin || currentUser?.permissions?.viewCost ? `<td>${p.cost}</td>` : ''}
+                                <td>${value.toFixed(2)}</td>
+                                <td style="color:${profit >= 0 ? 'var(--success)' : 'var(--danger)'};">${profit.toFixed(2)}</td>
+                            </tr>
+                        `;
+                    });
+
+                    invHtml += `
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="${(currentUser?.isAdmin || currentUser?.permissions?.viewCost) ? 5 : 4}"><strong>إجمالي قيمة المخزن</strong></td>
+                                        <td><strong>${totalValue.toFixed(2)} ج.م</strong></td>
+                                        <td><strong style="color:${totalProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${totalProfit.toFixed(2)} ج.م</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    `;
+                    output.innerHTML = invHtml;
+                    break;
+
+                case 'profit':
+                    let totalCost = DB.products.reduce((acc, p) => acc + (p.cost * p.qty), 0);
+                    let totalValue2 = DB.products.reduce((acc, p) => acc + (p.price * p.qty), 0);
+                    let totalSoldProfit = DB.products.reduce((acc, p) => acc + ((p.sold || 0) * (p.price - p.cost)), 0);
+                    const profit = totalValue2 - totalCost;
+
+                    output.innerHTML = `
+                        <h3><i class="fas fa-coins"></i> تقرير الأرباح</h3>
+                        <div class="grid-3 mt-2">
+                            <div class="card">
+                                <h4>قيمة المخزن</h4>
+                                <p style="font-size:1.8rem;font-weight:900;color:var(--primary);">${totalValue2.toFixed(2)} ج.م</p>
+                            </div>
+                            <div class="card">
+                                <h4>تكلفة الشراء</h4>
+                                <p style="font-size:1.8rem;font-weight:900;color:var(--warning);">${totalCost.toFixed(2)} ج.م</p>
+                            </div>
+                            <div class="card">
+                                <h4>الأرباح المتوقعة</h4>
+                                <p style="font-size:1.8rem;font-weight:900;color:${profit >= 0 ? 'var(--success)' : 'var(--danger)'};">${profit.toFixed(2)} ج.م</p>
+                            </div>
+                            <div class="card">
+                                <h4>الربح من المبيعات</h4>
+                                <p style="font-size:1.8rem;font-weight:900;color:${totalSoldProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">${totalSoldProfit.toFixed(2)} ج.م</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'logs':
+                    let logsHtml = `<h3><i class="fas fa-history"></i> سجل النظام</h3>`;
+                    if (DB.salesLog.length === 0) {
+                        logsHtml += `<p class="text-muted">لا توجد سجلات</p>`;
+                    } else {
+                        logsHtml += `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>التاريخ</th><th>النوع</th><th>المبلغ</th><th>التفاصيل</th></tr></thead>
+                                    <tbody>
+                        `;
+                        DB.salesLog.slice(-50).reverse().forEach(log => {
+                            const items = log.items ? log.items.map(i => `${i.name} (${i.qty})`).join(', ') : '';
+                            logsHtml += `
+                                <tr>
+                                    <td>${new Date(log.date).toLocaleString()}</td>
+                                    <td>${log.type}</td>
+                                    <td>${(log.total || log.amount || 0).toFixed(2)}</td>
+                                    <td>${log.customer || log.reason || items || '-'}</td>
+                                </tr>
+                            `;
+                        });
+                        logsHtml += `</tbody></table></div>`;
+                    }
+                    output.innerHTML = logsHtml;
+                    break;
+
+                case 'drawerLog':
+                    let drawerHtml = `<h3><i class="fas fa-cash-register"></i> سجل الدرج</h3>`;
+                    if (DB.drawerLog.length === 0) {
+                        drawerHtml += `<p class="text-muted">لا توجد عمليات على الدرج</p>`;
+                    } else {
+                        drawerHtml += `
+                            <div class="table-wrap">
+                                <table>
+                                    <thead><tr><th>التاريخ</th><th>النوع</th><th>المبلغ</th><th>السبب</th><th>الرصيد</th></tr></thead>
+                                    <tbody>
+                        `;
+                        DB.drawerLog.slice(-50).reverse().forEach(log => {
+                            drawerHtml += `
+                                <tr>
+                                    <td>${new Date(log.date).toLocaleString()}</td>
+                                    <td>${log.type}</td>
+                                    <td>${log.amount.toFixed(2)}</td>
+                                    <td>${log.reason || '-'}</td>
+                                    <td>${log.balance.toFixed(2)}</td>
+                                </tr>
+                            `;
+                        });
+                        drawerHtml += `</tbody></table></div>`;
+                    }
+                    output.innerHTML = drawerHtml;
+                    break;
+
+                default:
+                    output.innerHTML = `<p class="text-muted">⚠️ نوع التقرير غير معروف</p>`;
+            }
+
+            output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============================================================
+        // 13. DRAWER, SETTINGS, IMPORT/EXPORT, CLEAR (نفس السابق)
+        // ============================================================
+        function openDrawer() {
+            const html = `
+                <h2><i class="fas fa-cash-register"></i> الدرج المالي</h2>
+                <div style="text-align:center;font-size:3rem;font-weight:900;color:var(--warning);margin:16px 0;">
+                    ${DB.drawer.toFixed(2)} ج.م
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <label class="text-muted">المبلغ</label>
+                        <input class="input-field" id="drawerAmount" type="number" step="0.01" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="text-muted">السبب</label>
+                        <input class="input-field" id="drawerReason" placeholder="سبب العملية">
+                    </div>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="drawerDeposit()"><i class="fas fa-plus-circle"></i> إيداع</button>
+                    <button class="btn btn-danger" onclick="drawerWithdraw()"><i class="fas fa-minus-circle"></i> سحب</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إغلاق</button>
+                </div>
+                <div class="mt-2">
+                    <button class="btn btn-info" onclick="generateReport('drawerLog');closeModal();">
+                        <i class="fas fa-history"></i> عرض سجل الدرج
+                    </button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function drawerDeposit() {
+            const amt = parseFloat(document.getElementById('drawerAmount').value);
+            const reason = document.getElementById('drawerReason').value || 'إيداع';
+            if (!amt || amt <= 0) { alert('❌ أدخل مبلغاً صحيحاً'); return; }
+            DB.drawer += amt;
+            DB.drawerLog.push({ type: 'إيداع', amount: amt, reason, date: new Date().toISOString(), balance: DB.drawer });
+            DB.salesLog.push({ type: 'إيداع درج', total: amt, reason, date: new Date().toISOString() });
+            saveData();
+            renderAll();
+            closeModal();
+            alert(`✅ تم إيداع ${amt.toFixed(2)} ج.م في الدرج`);
+        }
+
+        function drawerWithdraw() {
+            const amt = parseFloat(document.getElementById('drawerAmount').value);
+            const reason = document.getElementById('drawerReason').value || 'سحب';
+            if (!amt || amt <= 0 || amt > DB.drawer) {
+                alert('❌ مبلغ غير صحيح أو أكبر من رصيد الدرج');
+                return;
+            }
+            DB.drawer -= amt;
+            DB.drawerLog.push({ type: 'سحب', amount: amt, reason, date: new Date().toISOString(), balance: DB.drawer });
+            DB.salesLog.push({ type: 'سحب درج', total: amt, reason, date: new Date().toISOString() });
+            saveData();
+            renderAll();
+            closeModal();
+            alert(`✅ تم سحب ${amt.toFixed(2)} ج.م من الدرج`);
+        }
+
+        function changeAdminPassword() {
+            const html = `
+                <h2><i class="fas fa-key"></i> تغيير كلمة مرور الأدمن</h2>
+                <div class="mt-2">
+                    <label class="text-muted">كلمة المرور الجديدة *</label>
+                    <input class="input-field" id="newAdminPass" type="password" placeholder="أدخل كلمة مرور قوية">
+                </div>
+                <div class="mt-1">
+                    <label class="text-muted">تأكيد كلمة المرور *</label>
+                    <input class="input-field" id="confirmAdminPass" type="password" placeholder="أعد إدخال كلمة المرور">
+                </div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                    <button class="btn btn-success" onclick="saveAdminPassword()"><i class="fas fa-save"></i> تغيير</button>
+                    <button class="btn btn-outline" onclick="closeModal()"><i class="fas fa-times"></i> إلغاء</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function saveAdminPassword() {
+            const pass = document.getElementById('newAdminPass').value.trim();
+            const confirm = document.getElementById('confirmAdminPass').value.trim();
+
+            if (!pass || pass.length < 4) { alert('❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل'); return; }
+            if (pass !== confirm) { alert('❌ كلمتي المرور غير متطابقتين'); return; }
+
+            const admin = DB.employees.find(e => e.isAdmin === true);
+            if (admin) {
+                admin.password = btoa(pass);
+                saveData();
+                closeModal();
+                alert('✅ تم تغيير كلمة مرور الأدمن بنجاح');
+            } else {
+                alert('❌ لم يتم العثور على حساب الأدمن');
+            }
+        }
+
+        function importProducts() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (Array.isArray(data)) {
+                            data.forEach(item => {
+                                if (!item.id) item.id = DB.nextId++;
+                                DB.products.push(item);
+                            });
+                            saveData();
+                            renderAll();
+                            alert(`✅ تم استيراد ${data.length} منتج بنجاح`);
+                        } else { alert('❌ تنسيق الملف غير صحيح'); }
+                    } catch (err) { alert('❌ فشل قراءة الملف: ' + err.message); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function exportProducts() {
+            const data = JSON.stringify(DB.products, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `products_export_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            alert('✅ تم تصدير المنتجات بنجاح');
+        }
+
+        function exportFullData() {
+            const data = JSON.stringify(DB, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `system_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            alert('✅ تم تصدير كل البيانات بنجاح');
+        }
+
+        function importFullData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (!confirm('⚠️ سيتم استبدال كل البيانات الحالية. هل أنت متأكد؟')) return;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        Object.keys(data).forEach(key => {
+                            if (key in DB) {
+                                DB[key] = data[key];
+                            }
+                        });
+                        saveData();
+                        renderAll();
+                        alert('✅ تم استيراد كل البيانات بنجاح');
+                        location.reload();
+                    } catch (err) { alert('❌ فشل قراءة الملف: ' + err.message); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function clearAllData() {
+            if (!confirm('⚠️ تحذير: سيتم حذف كل البيانات نهائياً! هل أنت متأكد؟')) return;
+            if (!confirm('⚠️ تأكيد نهائي: هل تريد حذف كل شيء؟')) return;
+
+            DB.products = [];
+            DB.repairs = [];
+            DB.suppliers = [];
+            DB.salesLog = [];
+            DB.drawerLog = [];
+            DB.cart = [];
+            DB.drawer = 0;
+            DB.nextId = 1;
+            DB.repairId = 1;
+            DB.supplierId = 1;
+            DB.employeeId = 1;
+
+            DB.employees = [{
+                id: DB.employeeId++,
+                name: 'Admin',
+                username: 'admin',
+                password: btoa('admin123'),
+                permissions: {
+                    products: true,
+                    sales: true,
+                    repairs: true,
+                    suppliers: true,
+                    reports: true,
+                    settings: true,
+                    drawer: true,
+                    employees: true,
+                    viewCost: true,
+                    deleteData: true,
+                    importExport: true
+                },
+                isAdmin: true
+            }];
+
+            saveData();
+            renderAll();
+            alert('🗑️ تم حذف كل البيانات بنجاح');
+        }
+
+        function printReport() {
+            const content = document.getElementById('reportOutput');
+            if (!content.innerHTML.trim()) { alert('⚠️ لا يوجد تقرير للطباعة'); return; }
+
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+            printWindow.document.write(`
+                <html><head><title>تقرير النظام</title>
+                <style>
+                    body { font-family: 'Tajawal', sans-serif; padding: 30px; direction: rtl; }
+                    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                    th, td { padding: 8px 12px; border: 1px solid #ddd; text-align: right; }
+                    th { background: #f0f0f0; }
+                    h3 { color: #2563eb; }
+                </style>
+                </head><body>
+                    <h1 style="text-align:center;color:#2563eb;">نظام كاشير المحترف</h1>
+                    <h3 style="text-align:center;color:#666;">تقرير النظام</h3>
+                    <hr>
+                    ${content.innerHTML}
+                    <hr>
+                    <p style="text-align:center;color:#999;font-size:0.9rem;">تم إنشاء التقرير بواسطة نظام كاشير المحترف - ${new Date().toLocaleString()}</p>
+                </body></html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function updateDashboard() {
+            document.getElementById('totalProducts').innerText = DB.products.length;
+            const openRepairs = DB.repairs.filter(r => r.status !== 'تم التسليم').length;
+            document.getElementById('openRepairs').innerText = openRepairs;
+            const totalSales = DB.salesLog.filter(s => s.type === 'بيع').reduce((acc, s) => acc + (s.total || 0), 0);
+            document.getElementById('totalSales').innerText = totalSales.toFixed(2);
+        }
+
+        function updateDrawer() {
+            document.getElementById('drawerTotal').innerText = DB.drawer.toFixed(2);
+        }
+
+        function navigateTo(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('section-' + section);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('#mainNav .btn').forEach(btn => {
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline');
+            });
+
+            const navBtns = document.querySelectorAll('#mainNav .btn');
+            const sectionMap = {
+                'dashboard': 0,
+                'products': 1,
+                'repairs': 2,
+                'suppliers': 3,
+                'reports': 4,
+                'employees': 5,
+                'settings': 6
+            };
+            const idx = sectionMap[section];
+            if (idx !== undefined && navBtns[idx] && navBtns[idx].style.display !== 'none') {
+                navBtns[idx].classList.remove('btn-outline');
+                navBtns[idx].classList.add('btn-success');
+            }
+        }
+
+        function openModal(html) {
+            document.getElementById('modalContent').innerHTML = html;
+            document.getElementById('globalModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('globalModal').classList.remove('active');
+        }
+
+        // ============================================================
+        // 14. INIT
+        // ============================================================
+        window.onload = function() {
+            init();
+
+            document.getElementById('globalModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            document.getElementById('loginUsername').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') document.getElementById('loginPassword').focus();
+            });
+            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+        };
+
+        console.log('🚀 نظام كاشير المحترف - النسخة النهائية');
+    </script>
+</body>
+</html>
